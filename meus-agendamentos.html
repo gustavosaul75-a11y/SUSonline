@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Meus Agendamentos</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+  <h1>
+    Meus Agendamentos
+  </h1>
+
+  <p>
+    Consultas do Usuário
+  </p>
+
+</header>
+
+<a href="usuario.html">
+
+  <button class="botao-voltar">
+
+    ← Voltar
+
+  </button>
+
+</a>
+
+<div class="painel-status">
+
+  <div class="coluna-status">
+
+    <h2>
+      Pendentes
+    </h2>
+
+    <div id="pendentes"></div>
+
+  </div>
+
+  <div class="coluna-status">
+
+    <h2>
+      Agendados
+    </h2>
+
+    <div id="agendados"></div>
+
+  </div>
+
+  <div class="coluna-status">
+
+    <h2>
+      Concluídos
+    </h2>
+
+    <div id="concluidos"></div>
+
+  </div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script src="firebase.js"></script>
+
+<script>
+
+const pendentes =
+  document.getElementById("pendentes");
+
+const agendados =
+  document.getElementById("agendados");
+
+const concluidos =
+  document.getElementById("concluidos");
+
+db.collection("solicitacoes")
+.get()
+
+.then((dados) => {
+
+  dados.forEach((doc) => {
+
+    const item = doc.data();
+
+    const card = `
+
+      <div class="etapa ativa">
+
+        <h3>
+          ${item.nome}
+        </h3>
+
+        <p>
+
+          <strong>Especialidade:</strong>
+
+          ${item.especialidade}
+
+        </p>
+
+        <p>
+
+          <strong>Unidade:</strong>
+
+          ${item.unidade}
+
+        </p>
+
+        <p>
+
+          <strong>Status:</strong>
+
+          ${item.status}
+
+        </p>
+
+        <p>
+
+          <strong>Data:</strong>
+
+          ${item.dataConsulta || "Aguardando"}
+
+        </p>
+
+        <p>
+
+          <strong>Horário:</strong>
+
+          ${item.horario || "Aguardando"}
+
+        </p>
+
+      </div>
+
+    `;
+
+    if(item.status === "pendente"){
+
+      pendentes.innerHTML += card;
+
+    }
+
+    else if(item.status === "agendado"){
+
+      agendados.innerHTML += card;
+
+    }
+
+    else if(item.status === "concluido"){
+
+      concluidos.innerHTML += card;
+
+    }
+
+  });
+
+});
+
+</script>
+<footer>
+
+  <p>
+    SUSonline © 2026 | Desenvolvido por Gustavo Martins
+  </p>
+
+</footer>
+
+</body>
+
+</html>

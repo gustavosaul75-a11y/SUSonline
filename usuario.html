@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Usuário - SUSonline</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+  <h1>SUSonline</h1>
+
+  <p>
+    Solicitação de Consulta
+    <a href="meus-agendamentos.html">
+
+  <button>
+
+    Ver Meus Agendamentos
+
+  </button>
+
+</a>
+  </p>
+
+</header>
+
+<div class="etapa ativa">
+
+  <h3>Dados do Paciente</h3>
+
+  <label>Nome</label>
+  <input type="text" id="nome">
+
+  <label>CPF</label>
+  <input type="text" id="cpf">
+
+  <label>Data de Nascimento</label>
+  <input type="date" id="nascimento">
+
+  <label>Telefone</label>
+  <input type="tel" id="telefone">
+
+  <label>Especialidade</label>
+
+  <select id="especialidade">
+
+    <option>Clínico Geral</option>
+
+    <option>Cardiologia</option>
+
+    <option>Pediatria</option>
+
+    <option>Ortopedia</option>
+
+  </select>
+
+  <label>Unidade</label>
+
+  <select id="unidade">
+
+    <option>UBS Centro</option>
+
+    <option>UBS Vila Nova</option>
+
+    <option>AME Ipiranga</option>
+
+  </select>
+
+  <button onclick="salvarSolicitacao()">
+
+    Solicitar Consulta
+
+  </button>
+  
+  <a href="login.html">
+
+  <button class="botao-voltar">
+
+    ← Sair
+
+  </button>
+
+</a>
+  
+  
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script src="firebase.js"></script>
+
+<footer>
+
+  <p>
+    SUSonline © 2026 | Desenvolvido por Gustavo Martins
+  </p>
+
+</footer>
+
+</body>
+
+</html>

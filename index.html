@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head> 
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-witdh, initial-scale=1.0">
+<title>SUSonline</title>
+</head>
+
+<body>
+	<header>
+<h1>Saúde Online SUS - Agendamento</h1>
+<p>Sem filas, sem esperas. Escolha a unidade de saúde, a especialidade e o horário mais conveniente para voçê.</p>
+	</header>
+  <div class="etapa ativa" id="etapa-1">
+    <h3>Dados Pessoais</h3>
+    <label for="nome">nome:</label>
+    <input type="nome" id="nome" name="Nome Completo">
+    <label for="CPF">CPF:</label>
+    <input type="CPF" id="cpf" name="CPF">
+	<label for="Data de Nascimento">Data de Nascimento</label>
+	<input type="data" id="nascimento" name="Data de Nascimento">
+	<label for="Telefone">Telefone</label>
+	<input type="Telefone" id="telefone" name="Telefone">
+    <button onclick="irPara(2)">Continuar</button>
+  </div>
+
+  <div class="etapa" id="etapa-2">
+    <h3>Especialidade</h3>
+      <label for="especialidade">Especialidade</label>
+  <select id="especialidade">
+    <option value="">Escolha</option>
+    <option>Clínico Geral</option>
+    <option>Cardiologia</option>
+    <option>Pediatria</option>
+    <option>Ortopedia</option>
+  </select>
+
+  <label for="unidade">Unidade de Saúde</label>
+  <select id="unidade">
+    <option value="">Escolha</option>
+    <option>UBS Centro</option>
+    <option>UBS Vila Nova</option>
+    <option>AME Ipiranga</option>
+  </select>
+
+    <button onclick="irPara(1)">Voltar</button>
+    <button onclick="irPara(3)">Continuar</button>
+  </div>
+
+  <div class="etapa" id="etapa-3">
+    <h3>Data e Horário</h3>
+      <label for="data">Data da Consulta</label>
+  <input type="date" id="data" />
+
+  <label for="horario">Horário</label>
+  <select id="horario">
+    <option value="">Escolha</option>
+    <option>07:30</option>
+    <option>08:00</option>
+    <option>09:00</option>
+    <option>10:00</option>
+    <option>14:00</option>
+    <option>15:00</option>
+  </select>
+
+    <button onclick="irPara(2)">Voltar</button>
+    <button onclick="irPara(4)">Continuar</button>
+  </div>
+
+  <div class="etapa" id="etapa-4">
+  <h3>Confirmação</h3>
+
+  <div id="resumo" class="cartao-confirmacao">
+    <h4>Resumo do Agendamento</h4>
+    <p id="linha-nome"></p>
+    <p id="linha-cpf"></p>
+    <p id="linha-especialidade"></p>
+    <p id="linha-data"></p>
+    <p id="linha-horario"></p>
+  </div>
+
+  <button onclick="voltarInicio()">Voltar ao Início</button>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

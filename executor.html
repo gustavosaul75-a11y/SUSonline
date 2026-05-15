@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Executor - SUSonline</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+  <h1>
+    Painel Executor
+  </h1>
+
+  <p>
+    Gerenciamento das Consultas
+  </p>
+
+</header>
+
+<a href="login.html">
+
+  <button class="botao-voltar">
+
+    ← Sair
+
+  </button>
+
+</a>
+
+<div class="painel-status">
+
+  <div class="coluna-status">
+
+    <h2>
+      Agendados
+    </h2>
+
+    <div id="agendados"></div>
+
+  </div>
+
+  <div class="coluna-status">
+
+    <h2>
+      Concluídos
+    </h2>
+
+    <div id="concluidos"></div>
+
+  </div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script src="firebase.js"></script>
+
+<script>
+
+const agendados =
+  document.getElementById("agendados");
+
+const concluidos =
+  document.getElementById("concluidos");
+
+db.collection("solicitacoes")
+.get()
+
+.then((dados) => {
+
+  dados.forEach((doc) => {
+
+    const item = doc.data();
+
+    const card = `
+
+      <div class="etapa ativa">
+
+        <h3>
+          ${item.nome}
+        </h3>
+
+        <p>
+
+          <strong>Especialidade:</strong>
+
+          ${item.especialidade}
+
+        </p>
+
+        <p>
+
+          <strong>Data:</strong>
+
+          ${item.dataConsulta || "Aguardando"}
+
+        </p>
+
+        <p>
+
+          <strong>Horário:</strong>
+
+          ${item.horario || "Aguardando"}
+
+        </p>
+
+        <p>
+
+          <strong>Status:</strong>
+
+          ${item.status}
+
+        </p>
+
+        ${item.status === "agendado" ? `
+
+        <button
+          onclick="concluirConsulta('${doc.id}')"
+        >
+
+          Marcar como Concluído
+
+        </button>
+
+        ` : ""}
+
+      </div>
+
+    `;
+
+    if(item.status === "agendado"){
+
+      agendados.innerHTML += card;
+
+    }
+
+    else if(item.status === "concluido"){
+
+      concluidos.innerHTML += card;
+
+    }
+
+  });
+
+});
+
+function concluirConsulta(id){
+
+  db.collection("solicitacoes")
+  .doc(id)
+  .update({
+
+    status: "concluido"
+
+  })
+
+  .then(() => {
+
+    alert("Consulta concluída!");
+
+    location.reload();
+
+  })
+
+  .catch((erro) => {
+
+    console.log(erro);
+
+    alert("Erro ao concluir.");
+
+  });
+
+}
+
+</script>
+
+<footer>
+
+  <p>
+    SUSonline © 2026 | Desenvolvido por Gustavo Martins
+  </p>
+
+</footer>
+</body>
+
+</html>

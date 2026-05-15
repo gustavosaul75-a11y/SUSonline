@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Intermediário - SUSonline</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+  <h1>
+    Painel Intermediário
+  </h1>
+
+  <p>
+    Gerenciamento de Consultas
+  </p>
+
+</header>
+
+<a href="login.html">
+
+  <button class="botao-voltar">
+
+    ← Sair
+
+  </button>
+
+</a>
+
+<div class="painel-status">
+
+  <div class="coluna-status">
+
+    <h2>
+      Pendentes
+    </h2>
+
+    <div id="pendentes"></div>
+
+  </div>
+
+  <div class="coluna-status">
+
+    <h2>
+      Agendados
+    </h2>
+
+    <div id="agendados"></div>
+
+  </div>
+
+  <div class="coluna-status">
+
+    <h2>
+      Concluídos
+    </h2>
+
+    <div id="concluidos"></div>
+
+  </div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script src="firebase.js"></script>
+
+<script>
+
+const pendentes =
+  document.getElementById("pendentes");
+
+const agendados =
+  document.getElementById("agendados");
+
+const concluidos =
+  document.getElementById("concluidos");
+
+db.collection("solicitacoes")
+.get()
+
+.then((dados) => {
+
+  dados.forEach((doc) => {
+
+    const item = doc.data();
+
+    const card = `
+
+      <div class="etapa ativa">
+
+        <h3>
+          ${item.nome}
+        </h3>
+
+        <p>
+
+          <strong>Especialidade:</strong>
+
+          ${item.especialidade}
+
+        </p>
+
+        <p>
+
+          <strong>Unidade:</strong>
+
+          ${item.unidade}
+
+        </p>
+
+        <p>
+
+          <strong>Status:</strong>
+
+          ${item.status}
+
+        </p>
+
+        <p>
+
+          <strong>Data:</strong>
+
+          ${item.dataConsulta || "Aguardando"}
+
+        </p>
+
+        <p>
+
+          <strong>Horário:</strong>
+
+          ${item.horario || "Aguardando"}
+
+        </p>
+
+        ${item.status === "pendente" ? `
+
+        <label>
+          Data da Consulta
+        </label>
+
+        <input
+          type="date"
+          id="data-${doc.id}"
+        >
+
+        <label>
+          Horário
+        </label>
+
+        <select id="horario-${doc.id}">
+
+          <option>08:00</option>
+
+          <option>09:00</option>
+
+          <option>10:00</option>
+
+          <option>14:00</option>
+
+        </select>
+
+        <button
+          onclick="agendarConsulta('${doc.id}')"
+        >
+
+          Agendar Consulta
+
+        </button>
+
+        ` : ""}
+
+      </div>
+
+    `;
+
+    if(item.status === "pendente"){
+
+      pendentes.innerHTML += card;
+
+    }
+
+    else if(item.status === "agendado"){
+
+      agendados.innerHTML += card;
+
+    }
+
+    else if(item.status === "concluido"){
+
+      concluidos.innerHTML += card;
+
+    }
+
+  });
+
+});
+
+function agendarConsulta(id){
+
+  const data =
+    document.getElementById(`data-${id}`).value;
+
+  const horario =
+    document.getElementById(`horario-${id}`).value;
+
+  db.collection("solicitacoes")
+  .doc(id)
+  .update({
+
+    dataConsulta: data,
+
+    horario: horario,
+
+    status: "agendado"
+
+  })
+
+  .then(() => {
+
+    alert("Consulta agendada!");
+
+    location.reload();
+
+  })
+
+  .catch((erro) => {
+
+    console.log(erro);
+
+    alert("Erro ao agendar.");
+
+  });
+
+}
+
+</script>
+
+<footer>
+
+  <p>
+    SUSonline © 2026 | Desenvolvido por Gustavo Martins
+  </p>
+
+</footer>
+
+</body>
+
+</html>

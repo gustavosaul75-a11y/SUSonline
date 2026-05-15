@@ -1,0 +1,32 @@
+.container-perfis{
+	display:flex;
+	justify-content:center;
+	gap:20px;
+	flex-wrap:wrap;
+	margin-top:40px;
+}
+
+.card-perfil{
+	background:white;
+	padding:25px;
+	border-radius:15px;
+	width:280px;
+	text-align:center;
+	box-shadow:0 4px 10px rgba(0,0,0,0.1);
+	transition:0.3s;
+}
+
+.card-perfil:hover{
+	transform:translateY(-5px);
+}
+
+.card-perfil h2{
+	color:#1351B4;
+	margin-bottom:15px;
+}
+
+.card-perfil p{
+	color:#555;
+	margin-bottom:20px;
+	font-size:14px;
+}
